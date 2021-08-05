@@ -1,57 +1,65 @@
-class Figure {
-  constructor(name){
-    this.name = name;
+'use strict'
+
+class RangeValidator {
+  constructor(fromValue, toValue){
+    this.fromValue = fromValue;
+    this.toValue = toValue;
   }
 
-  getArea(){
 
-  }
-}
+  set fromValue (newFromValue) {
+    if(isNaN(newFromValue) || typeof newFromValue !== 'number') {
+      throw new TypeError('Value from must be number');
+    }
 
-class Triangle extends Figure {
-  constructor(a, h) {
-    super('Треугольник');
+    if(newFromValue < 0) {
+      throw new RangeError('Value from must be positive number');
+    }
 
-    this.a = a;
-    this.h = h;
-  }
-
-  getArea(){
-    return this.a * this.h * 0.5;
-  }
-}
-
-class Square extends Figure {
-  constructor(a) {
-    super('Квадрат');
-    this.a = a;
+    this._fromValue = newFromValue;
   }
 
-  getArea(){
-    return this.a * this.a;
-  }
-}
-
-class Rhombus extends Figure {
-  constructor(d1, d2) {
-    super('Ромб');
-
-    this.d1 = d1;
-    this.d2 = d2;
+  get fromValue() {
+    return this._fromValue;
   }
 
-  getArea(){
-    return this.d1 * this.d2 * 0.5;
-  }
-}
+  set toValue(newToValue) {
+    // if(newFromValue < newToValue){
+    //   throw new Error("To value must be less than from value");
+    // }
 
-function getFigureArea(figure){
-  if(figure instanceof Figure){
-    return figure.getArea();
-  }
-  throw new TypeError('Это не фигура');
-}
+    if(isNaN(newToValue) || typeof newToValue !== 'number') {
+      throw new TypeError('Value to must be number');
+    }
 
-const square = new Square(5);
-const triangle = new Triangle(5, 10);
-const rhombus = new Rhombus(5, 8);
+    if(newToValue < 0) {
+      throw new RangeError('Value to must be positive number');
+    }
+    this._toValue = newToValue;
+  }
+
+  get toValue() {
+    return this._toValue;
+  }
+
+  getRange(toValue, fromValue){
+    const arrayRange = [];
+    for (var i = toValue; i <= fromValue; i++) {
+      arrayRange.push(i);
+    }
+    return arrayRange;
+  }
+
+  getValidate(num,toValue, fromValue){
+    if(num >= toValue && num <= fromValue){
+      return num;
+    }
+    else{
+      throw new RangeError("Число не входит в диапазон");
+    }
+  }
+};
+
+
+const range1 = new RangeValidator(2, 10);
+const range1 = new RangeValidator(1, 20);
