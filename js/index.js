@@ -18,7 +18,6 @@ class RangeValidator {
 
     this._fromValue = newFromValue;
   }
-
   get fromValue() {
     return this._fromValue;
   }
@@ -37,14 +36,13 @@ class RangeValidator {
     }
     this._toValue = newToValue;
   }
-
   get toValue() {
     return this._toValue;
   }
 
   getRange(toValue, fromValue){
     const arrayRange = [];
-    for (var i = toValue; i <= fromValue; i++) {
+    for (let i = toValue; i <= fromValue; i++) {
       arrayRange.push(i);
     }
     return arrayRange;
@@ -55,11 +53,11 @@ class RangeValidator {
       return num;
     }
     else{
-      throw new RangeError("Число не входит в диапазон");
+      throw new RangeError("This number is not in range");
     }
   }
 };
 
 
 const range1 = new RangeValidator(2, 10);
-const range1 = new RangeValidator(1, 20);
+const range2 = new RangeValidator(1, 20);
