@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 class RangeValidator {
   constructor(fromValue, toValue){
@@ -12,52 +12,47 @@ class RangeValidator {
       throw new TypeError('Value from must be number');
     }
 
-    if(newFromValue < 0) {
-      throw new RangeError('Value from must be positive number');
+    if(newFromValue > this.toValue) {
+      throw new RangeError('To value must be less than from value');
     }
 
     this._fromValue = newFromValue;
   }
+
   get fromValue() {
     return this._fromValue;
   }
 
   set toValue(newToValue) {
-    // if(newFromValue < newToValue){
-    //   throw new Error("To value must be less than from value");
-    // }
-
     if(isNaN(newToValue) || typeof newToValue !== 'number') {
       throw new TypeError('Value to must be number');
     }
 
-    if(newToValue < 0) {
-      throw new RangeError('Value to must be positive number');
+    if(newToValue < this.fromValue) {
+      throw new RangeError('From value must be less than from value');
     }
     this._toValue = newToValue;
   }
+
   get toValue() {
     return this._toValue;
   }
 
-  getRange(toValue, fromValue){
-    const arrayRange = [];
-    for (let i = toValue; i <= fromValue; i++) {
-      arrayRange.push(i);
-    }
-    return arrayRange;
+  get range(){
+    return [this.fromValue, this.toValue];
   }
 
-  getValidate(num,toValue, fromValue){
-    if(num >= toValue && num <= fromValue){
-      return num;
+  get validate(number){
+    if(isNaN(number) || typeof number !== 'number') {
+      throw new TypeError('Number to must be number');
     }
-    else{
-      throw new RangeError("This number is not in range");
-    }
-  }
-};
 
+    if(number >= this.fromValue && number <= this.toValue){
+      return number;
+    }
+
+    throw new RangeError("This number is not in range");
+  }
+}
 
 const range1 = new RangeValidator(2, 10);
-const range2 = new RangeValidator(1, 20);
